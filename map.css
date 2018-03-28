@@ -5,3 +5,20 @@ body {
 h1,h3,p {
     text-align: center;
 }
+
+path {
+    stroke: lightcoral;
+    stroke-width: 0.5px;
+    fill: lightseagreen;
+}
+
+#tooltip {
+    text-align: right;
+    padding: 15px;
+    background-color: lightskyblue;
+    border: 2px dotted black;
+    width: auto;
+    opacity: 0;
+    color: black;
+    position: absolute;
+}
