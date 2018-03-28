@@ -13,7 +13,7 @@ $(document).ready(function(){
     svg.append("rect").attr("width",width).attr("height",height).attr("fill","white");
     // create an empty placeholder to hold the geomerty elements in the SVG
     var g = svg.append("g");
-    // add the d3.json to load the topojson data from the url given from freecodecamp
+    // add the d3.json to load the topojson data
     d3.json("https://d3js.org/world-50m.v1.json",function(error,data){
         if(error){
             console.log(error);
@@ -32,6 +32,22 @@ $(document).ready(function(){
         // append zoom effect to the svg canvas
         svg.append("zoom");
 
-        // load data from json file
+        // load data from json file from freecodecamp
+
+        d3.json("https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/meteorite-strike-data.json",function(error,data){
+            if(error){
+                console.log(error);
+            }
+
+            var locations = data.features;
+            // create the meteorite circles
+            var hue = 0;
+            // create an onject to hold the data of the meteorites 
+            locations.map(function(d){
+                // each circle has its own property of color
+                hue += 0.36;
+                d.color = "hsl(" + hue + ", 100%,  50%)";
+            });
+        })
     })
 });
