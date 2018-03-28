@@ -9,7 +9,7 @@ h1,h3,p {
 path {
     stroke: lightcoral;
     stroke-width: 0.5px;
-    fill: lightseagreen;
+    fill: lightseagreen; 
 }
 
 #tooltip {
