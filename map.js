@@ -25,7 +25,8 @@ $(document).ready(function(){
 
         var zoom = d3.behavior.zoom()
         .on("zoom",function(){
-            g.attr("transform","translate(" + d3.event.scale + ")");
+            g.attr("transform", "translate(" +
+          d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")");
             g.selectAll("path").attr("d",path.projection(projection));
         });
 
@@ -71,7 +72,7 @@ $(document).ready(function(){
             .style("fill",function(d){
                 return d.color;
             })
-// append data from the json file given by freecodecamp on the tooltip
+// append data from the json file given by freecodecamp on the tooltip using Event Listener
             .on("mouseover",function(data){
                 d3.select(this).style("fill","black");
                 d3.select("#name").text(data.properties.name);
@@ -81,7 +82,14 @@ $(document).ready(function(){
                 d3.select("#recclass").text(data.properties.recclass);
                 d3.select("#reclat").text(data.properties.reclat);
                 d3.select("#reclong").text(data.properties.reclong);
+                d3.select("#year").text(data.properties.year);
+                d3.select("#tooltip").style("right", (d3.event.pageX + 20) + "px").style("top",(d3.event.pageY - 80)+ "px").style("display","block").style("opacity","0.5")
             })
-        })
-    })
+
+            .on("mouseout",function(d){
+                d3.select(this).style("fill",d3.color);
+                d3.select("#tip").select("display","none");
+            });
+        });
+    });
 });
