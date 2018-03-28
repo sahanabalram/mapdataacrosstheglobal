@@ -48,6 +48,40 @@ $(document).ready(function(){
                 hue += 0.36;
                 d.color = "hsl(" + hue + ", 100%,  50%)";
             });
+
+            // append the circle data in svg canvas using D3 selectAll inbuit method
+            g.selectAll("circle").data(locations).enter().append("circle").attr("cx",function(d){
+                if(d.geometry){
+                    return projection([d.geometry.coordinates[0],d.geometry.coordinates[1]])[0];
+                }
+            })
+            .attr("cy",function(d){
+                if(d.geometry){
+                    return projection([d.geometry.coordinates[0],d.geometry.coordinates[1]])[1];
+                }
+            })
+
+            .attr("r",function(d){
+                if(d.properties.mass){
+                    // math.pow is used to display the mass from the json data that is received
+                    return Math.pow(parseInt(d.properties.mass), 1 / 9);
+                }
+            })
+            // fill circle with  colors
+            .style("fill",function(d){
+                return d.color;
+            })
+// append data from the json file given by freecodecamp on the tooltip
+            .on("mouseover",function(data){
+                d3.select(this).style("fill","black");
+                d3.select("#name").text(data.properties.name);
+                d3.select("#nametype").text(data.properties.nametype);
+                d3.select("#fall").text(data.properties.fall);
+                d3.select("#mass").text(data.properties.mass);
+                d3.select("#recclass").text(data.properties.recclass);
+                d3.select("#reclat").text(data.properties.reclat);
+                d3.select("#reclong").text(data.properties.reclong);
+            })
         })
     })
 });
